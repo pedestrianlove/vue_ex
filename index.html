@@ -11,68 +11,33 @@
 <body class="h-full grid place-items-center">
 
 <div id="app">
-    <section v-show="inProgressAssignments.length">
-        <h2 class="font-bold mb-2">Assignments</h2>
 
-        <ul>
-            <li v-for="assignment in inProgressAssignments"
-                :key="assignment.name"
-            >
-                <label v-if="! assignment.complete">
-                    {{ assignment.name }}
-
-                    <input
-                            type="checkbox"
-                            v-model="assignment.complete"
-                    >
-                </label>
-
-            </li>
-        </ul>
-    </section>
-
-    <section class="mt-8" v-show="completedAssignments.length">
-        <h2 class="font-bold mb-2">Completed Assignments</h2>
-
-        <ul>
-            <li v-for="assignment in completedAssignments"
-                :key="assignment.name"
-            >
-                <label>
-                    {{ assignment.name }}
-
-                    <input type="checkbox" v-model="assignment.complete">
-                </label>
-
-            </li>
-        </ul>
-    </section>
+    <app-button>Submit</app-button>
 
 </div>
 
 <script>
     let app = {
-        data() {
-            return {
-                assignments: [
-                    { name: 'Finish project', complete: false},
-                    { name: 'Read Chapter 4', complete: false},
-                    { name: 'Turn in Homework', complete: false},
-                ]
-            }
-        },
+        components: {
+            'app-button': {
+                template: `
+                    <button
+                        class="bg-gray-200 hover:bg-gray-400 border rounded px-5 py-2 disabled:cursor-not-allowed"
+                        :disabled="processing"
+                    >
+                        <slot/>
+                    </button>
+                `,
 
-        computed: {
-            completedAssignments() {
-                return this.assignments.filter(assignment => assignment.complete);
+                data() {
+                    return {
+                        processing: true
+                    };
+                }
             },
 
-            inProgressAssignments() {
-                return this.assignments.filter(assignment => !assignment.complete);
-            }
         }
     };
-
 
 
     Vue.createApp(app).mount('#app');
