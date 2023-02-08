@@ -18,9 +18,9 @@ export default {
     data() {
         return {
             assignments: [
-                { name: 'Finish project', complete: false},
-                { name: 'Read Chapter 4', complete: false},
-                { name: 'Turn in Homework', complete: false},
+                { name: 'Finish project', complete: false, tag: 'math'},
+                { name: 'Read Chapter 4', complete: false, tag: 'math'},
+                { name: 'Turn in Homework', complete: false, tag: 'science'},
             ],
         };
     },
